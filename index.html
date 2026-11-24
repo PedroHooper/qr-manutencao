@@ -5,143 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PM Run - Abertura de Nota via QR Code | ICL</title>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #f0f4f8; color: #1e293b; line-height: 1.5; padding-bottom: 32px; }
+  .container { max-width: 560px; margin: auto; padding: 20px 16px; }
+  .logo { text-align: center; margin-bottom: 10px; }
+  .logo img { max-width: 165px; width: 100%; height: auto; }
+  .titulo { text-align: center; color: #003b64; font-size: 1.45rem; font-weight: 800; }
+  .subtitulo { text-align: center; color: #64748b; font-size: 0.9rem; margin-bottom: 18px; }
+  .botao-app { display: block; width: 100%; text-align: center; padding: 16px; margin-bottom: 22px; background: linear-gradient(135deg, #00a8c8, #008ca8); color: #ffffff; text-decoration: none; border-radius: 12px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 4px 14px rgba(0, 168, 200, 0.35); border: none; cursor: pointer; }
+  .botao-app:active { transform: scale(0.98); }
+  .passo-card { background: #ffffff; border-radius: 14px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06); }
+  .passo-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .num { background: #003b64; color: #ffffff; font-weight: 800; font-size: 0.85rem; min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .passo-titulo { color: #003b64; font-weight: 700; font-size: 1.02rem; }
+  .passo-texto { font-size: 0.92rem; color: #334155; margin-bottom: 12px; }
+  .print-wrapper { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px; text-align: center; }
+  .print-wrapper img { max-width: 240px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); cursor: zoom-in; }
+  .print-legenda { display: block; font-size: 0.78rem; color: #64748b; margin-top: 6px; }
+  .campos-lista { background: #f8fafc; border-left: 4px solid #00a8c8; padding: 10px 12px; border-radius: 6px; font-size: 0.88rem; margin-bottom: 12px; }
+  .campos-lista li { margin-left: 16px; margin-bottom: 4px; }
+  .alerta { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 12px 14px; border-radius: 8px; font-size: 0.85rem; color: #92400e; margin-top: 18px; }
+  .modal { display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.88); align-items: center; justify-content: center; padding: 16px; }
+  .modal img { max-width: 100%; max-height: 90vh; border-radius: 10px; }
+  footer { text-align: center; margin-top: 24px; color: #64748b; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">
+    <img src="ICL_BIG.png" alt="ICL">
+  </div>
+  <h1 class="titulo">Abertura de Nota via QR Code</h1>
+  <p class="subtitulo">Guia visual passo a passo — PM Run</p>
+  <button onclick="abrirPMRun()" class="botao-app">📲 ABRIR APLICATIVO PM RUN</button>
+  <div class="passo-card">
+    <div class="passo-header">
+      <div class="num">1</div>
+      <div class="passo-titulo">Toque em "CRIAR NOTA"</div>
+    </div>
+    <p class="passo-texto">Na tela inicial (<b>HOME</b>) do aplicativo PM Run, selecione a terceira opção: <b>CRIAR NOTA</b>.</p>
+    <div class="print-wrapper">
+      <img src="passo1.jpg" alt="Tela Home" onclick="ampliar(this.src)">
+      <span class="print-legenda">Toque na imagem para ampliar</span>
+    </div>
+  </div>
+  <div class="passo-card">
+    <div class="passo-header">
+      <div class="num">2</div>
+      <div class="passo-titulo">Selecione "NOTA VIA LEITURA"</div>
+    </div>
+    <p class="passo-texto">Na tela <b>ABRIR NOTA PM</b>, toque na primeira opção (<b>NOTA VIA LEITURA</b>) para ativar a câmera.</p>
+    <div class="print-wrapper">
+      <img src="passo2.jpg" alt="Nota via Leitura" onclick="ampliar(this.src)">
+      <span class="print-legenda">Toque na imagem para ampliar</span>
+    </div>
+  </div>
+  <div class="passo-card">
+    <div class="passo-header">
+      <div class="num">3</div>
+      <div class="passo-titulo">Aponte a câmera para o QR Code</div>
+    </div>
+    <p class="passo-texto">Enquadre a etiqueta do equipamento. O sistema identificará o ativo automaticamente (use o ícone da lâmpada no topo direito se estiver escuro).</p>
+    <div class="print-wrapper">
+      <img src="passo3.jpg" alt="Leitura QR Code" onclick="ampliar(this.src)">
+      <span class="print-legenda">Toque na imagem para ampliar</span>
+    </div>
+  </div>
+  <div class="passo-card">
+    <div class="passo-header">
+      <div class="num">4</div>
+      <div class="passo-titulo">Escolha o Tipo de Nota</div>
+    </div>
+    <p class="passo-texto">O app abrirá direto no equipamento (ex.: <b>300437 - MOTOR EC-101</b>). Escolha o tipo:</p>
+    <ul class="campos-lista">
+      <li><b>N1 - Corretiva Funcional:</b> Máquina parada ou quebra imediata.</li>
+      <li><b>N2 - Corretiva Planejada:</b> Defeito detectado, mas equipamento ainda opera.</li>
+      <li><b>N3 - Manut. Autônoma:</b> Limpeza técnica, ajuste ou inspeção.</li>
+      <li><b>N5 - Apoio e Modificações:</b> Melhorias ou adequações.</li>
+    </ul>
+    <div class="print-wrapper">
+      <img src="passo4.jpg" alt="Tipo de Nota" onclick="ampliar(this.src)">
+      <span class="print-legenda">Toque na imagem para ampliar</span>
+    </div>
+  </div>
+  <div class="passo-card">
+    <div class="passo-header">
+      <div class="num">5</div>
+      <div class="passo-titulo">Preencha os Dados da Nota</div>
+    </div>
+    <p class="passo-texto">O equipamento e o local já vêm preenchidos. Complete apenas:</p>
+    <ul class="campos-lista">
+      <li><b>Título:</b> Resumo curto (ex.: <i>Motor EC-101 desarmando</i>).</li>
+      <li><b>Notificador:</b> Seu nome ou matrícula.</li>
+      <li><b>Máquina Parada?:</b> Ative a chave se o ativo parou.</li>
+      <li><b>Prioridade:</b> Selecione conforme a urgência.</li>
+    </ul>
+    <div class="print-wrapper">
+      <img src="passo5.jpg" alt="Dados da Nota" onclick="ampliar(this.src)">
+      <span class="print-legenda">Toque na imagem para ampliar</span>
+    </div>
+  </div>
+  <div class="passo-card">
+    <div class="passo-header">
+      <div class="num">6</div>
+      <div class="passo-titulo">Detalhe o Problema e Gere a Nota</div>
+    </div>
+    <p class="passo-texto">Role para baixo, preencha a <b>Descrição</b>, toque no <b>ícone da câmera</b> no topo direito para anexar foto da falha e toque em <b>GERAR NOTA</b>.</p>
+    <div class="print-wrapper">
+      <img src="passo6.jpg" alt="Gerar Nota" onclick="ampliar(this.src)">
+      <span class="print-legenda">Toque na imagem para ampliar</span>
+    </div>
+  </div>
+  <div class="alerta">
+    ⚠️ <b>Equipamento não encontrado?</b> Volte à tela inicial do PM Run, toque no ícone de nuvem no canto inferior direito (<b>Sincronizar</b>) e leia o QR Code novamente.
+  </div>
+  <footer>PCM & Manutenção • ICL América do Sul</footer>
+</div>
+<div id="modalZoom" class="modal" onclick="this.style.display='none'">
+  <img id="imgAmpliada" src="" alt="Zoom">
+</div>
+<script>
+  function abrirPMRun() {
+    window.location.href = "intent://#Intent;package=br.com.itsstecnologia.app.pmrun;end";
+    setTimeout(function() {
+      window.location.href = "intent://#Intent;package=br.com.itsstecnologia.app.pm.run;end";
+    }, 600);
   }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    background: #f0f4f8;
-    color: #1e293b;
-    line-height: 1.5;
-    padding-bottom: 32px;
+  function ampliar(src) {
+    document.getElementById('imgAmpliada').src = src;
+    document.getElementById('modalZoom').style.display = 'flex';
   }
-  .container {
-    max-width: 560px;
-    margin: auto;
-    padding: 20px 16px;
-  }
-  .logo {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .logo img {
-    max-width: 165px;
-    width: 100%;
-    height: auto;
-  }
-  .titulo {
-    text-align: center;
-    color: #003b64;
-    font-size: 1.45rem;
-    font-weight: 800;
-  }
-  .subtitulo {
-    text-align: center;
-    color: #64748b;
-    font-size: 0.9rem;
-    margin-bottom: 18px;
-  }
-  .botao-app {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 16px;
-    margin-bottom: 22px;
-    background: linear-gradient(135deg, #00a8c8, #008ca8);
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 1.05rem;
-    box-shadow: 0 4px 14px rgba(0, 168, 200, 0.35);
-    border: none;
-    cursor: pointer;
-  }
-  .botao-app:active {
-    transform: scale(0.98);
-  }
-  .passo-card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 18px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-  }
-  .passo-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .num {
-    background: #003b64;
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 0.85rem;
-    min-width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .passo-titulo {
-    color: #003b64;
-    font-weight: 700;
-    font-size: 1.02rem;
-  }
-  .passo-texto {
-    font-size: 0.92rem;
-    color: #334155;
-    margin-bottom: 12px;
-  }
-  .print-wrapper {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 8px;
-    text-align: center;
-  }
-  .print-wrapper img {
-    max-width: 240px;
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-    cursor: zoom-in;
-  }
-  .print-legenda {
-    display: block;
-    font-size: 0.78rem;
-    color: #64748b;
-    margin-top: 6px;
-  }
-  .campos-lista {
-    background: #f8fafc;
-    border-left: 4px solid #00a8c8;
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 0.88rem;
-    margin-bottom: 12px;
-  }
-  .campos-lista li {
-    margin-left: 16px;
-    margin-bottom: 4px;
-  }
-  .alerta {
-    background: #fffbeb;
-    border-left: 4px solid #f59e0b;
-    padding: 12px 14px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    color: #92400e;
-    margin-top: 18px;
-  }
-  /* Modal para ampliar o print ao tocar */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    inset:
+</script>
+</body>
+</html>
