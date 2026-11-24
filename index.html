@@ -3,149 +3,419 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>PM Run - Abertura de Nota</title>
-
+<title>PM Run - Abertura de Nota | ICL</title>
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f7fa;
-    color:#333;
-    line-height:1.6;
-}
-
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-}
-
-.logo{
-    text-align:center;
-}
-
-.logo img{
-    max-width:250px;
-    width:100%;
-}
-
-.titulo{
-    text-align:center;
-    margin-top:20px;
-    color:#003b64;
-}
-
-.subtitulo{
-    text-align:center;
-    margin-bottom:30px;
-    color:#555;
-}
-
-.card{
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    margin-bottom:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
-
-.card h2{
-    color:#00a8c8;
-    margin-bottom:15px;
-}
-
-.passo{
-    padding:12px;
-    margin-bottom:10px;
-    background:#f7f9fb;
-    border-left:5px solid #00a8c8;
-    border-radius:5px;
-}
-
-.botao{
-    display:block;
-    text-align:center;
-    margin-top:20px;
-    padding:15px;
-    background:#00a8c8;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:bold;
-}
-
-.alerta{
-    background:#fff8e6;
-    border-left:5px solid #ffb000;
-    padding:15px;
-    border-radius:5px;
-}
-
-footer{
-    text-align:center;
-    margin-top:30px;
-    color:#777;
-}
-
+  :root {
+    --icl-navy: #003b64;
+    --icl-cyan: #00a8c8;
+    --icl-cyan-dark: #008ca8;
+    --bg-page: #f0f4f8;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.55;
+    padding-bottom: 40px;
+  }
+  .container {
+    max-width: 680px;
+    margin: auto;
+    padding: 20px 16px;
+  }
+  .logo {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .logo img {
+    max-width: 190px;
+    width: 100%;
+    height: auto;
+  }
+  .titulo {
+    text-align: center;
+    color: var(--icl-navy);
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .subtitulo {
+    text-align: center;
+    margin-top: 4px;
+    margin-bottom: 24px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  /* Cartão Dinâmico do Equipamento (aparece se houver ?eq=... na URL) */
+  .ativo-card {
+    display: none;
+    background: linear-gradient(135deg, var(--icl-navy), #005288);
+    color: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 18px rgba(0, 59, 100, 0.2);
+  }
+  .ativo-badge {
+    display: inline-block;
+    background: rgba(0, 168, 200, 0.28);
+    border: 1px solid rgba(0, 168, 200, 0.6);
+    color: #7ee8fa;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .ativo-nome {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .ativo-meta {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin-bottom: 14px;
+  }
+  .btn-copy {
+    width: 100%;
+    padding: 12px;
+    background: #ffffff;
+    color: var(--icl-navy);
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.1s ease, background 0.2s ease;
+  }
+  .btn-copy:active {
+    transform: scale(0.98);
+  }
+  .btn-copy.copiado {
+    background: #10b981;
+    color: #ffffff;
+  }
+  /* Cards Padrão */
+  .card {
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+  }
+  .card h2 {
+    color: var(--icl-navy);
+    font-size: 1.15rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+  }
+  .passo {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    background: #f8fafc;
+    border-left: 4px solid var(--icl-cyan);
+    border-radius: 8px;
+    align-items: flex-start;
+  }
+  .passo:last-child {
+    margin-bottom: 0;
+  }
+  .num {
+    background: var(--icl-navy);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .passo-texto strong {
+    color: var(--icl-navy);
+  }
+  .passo-detalhe {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  /* Tabela compacta de Tipos de Nota */
+  .notas-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .nota-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+  }
+  .nota-sigla {
+    background: var(--icl-navy);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 4px 9px;
+    border-radius: 6px;
+    min-width: 38px;
+    text-align: center;
+  }
+  .nota-sigla.urgente {
+    background: #dc2626;
+  }
+  .nota-desc {
+    font-size: 0.88rem;
+  }
+  .nota-desc strong {
+    display: block;
+    color: var(--text-main);
+  }
+  .nota-desc span {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+  /* Dicas e Exemplo */
+  .checklist {
+    list-style: none;
+  }
+  .checklist li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+  }
+  .checklist li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--icl-cyan);
+    font-weight: bold;
+  }
+  .exemplo-box {
+    margin-top: 14px;
+    background: #eff6ff;
+    border-left: 4px solid var(--icl-navy);
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 0.86rem;
+  }
+  .exemplo-box strong {
+    color: var(--icl-navy);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .alerta {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 0.86rem;
+    color: #92400e;
+    margin-top: 14px;
+  }
+  /* Botão Principal CTA */
+  .botao-app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    text-align: center;
+    margin-top: 18px;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--icl-cyan), var(--icl-cyan-dark));
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 14px rgba(0, 168, 200, 0.35);
+    transition: transform 0.15s ease;
+  }
+  .botao-app:active {
+    transform: scale(0.98);
+  }
+  footer {
+    text-align: center;
+    margin-top: 28px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
-    <div class="logo">
-        <img src="ICL_BIG.png" alt="ICL">
+  <div class="logo">
+    <img src="ICL_BIG.png" alt="ICL América do Sul">
+  </div>
+  <h1 class="titulo">Abertura de Nota PM</h1>
+  <p class="subtitulo">Guia rápido de campo — PCM / Manutenção</p>
+  <!-- CARTÃO DINÂMICO (Preenchido automaticamente se a URL tiver ?eq=...&tag=...&nome=...) -->
+  <div id="ativoCard" class="ativo-card">
+    <span class="ativo-badge">Equipamento Identificado</span>
+    <div id="ativoNome" class="ativo-nome">Carregando...</div>
+    <div id="ativoMeta" class="ativo-meta">Código SAP: ---</div>
+    <button id="btnCopy" class="btn-copy" onclick="copiarCodigo()">
+      📋 Copiar Código do Equipamento (<span id="codigoTexto"></span>)
+    </button>
+  </div>
+  <!-- BOTÃO DE REDIRECIONAMENTO DIRETO PARA O APP -->
+  <!-- ATENÇÃO: Substitua 'COM.EMPRESA.PMRUN' pelo package name real do aplicativo Android -->
+  <a id="btnAbrirApp" href="intent://#Intent;package=COM.EMPRESA.PMRUN;end" class="botao-app" onclick="copiarSilencioso()">
+    📲 ABRIR APLICATIVO PM RUN
+  </a>
+  <div class="card" style="margin-top: 20px;">
+    <h2>🛠️ Passo a Passo no PM Run</h2>
+    <div class="passo">
+      <div class="num">1</div>
+      <div class="passo-texto">
+        <strong>Acesse a criação de nota</strong>
+        <span class="passo-detalhe">Na tela inicial (Home), toque em <b>CRIAR NOTA</b>.</span>
+      </div>
     </div>
-
-    <h1 class="titulo">Abertura de Nota de Manutenção</h1>
-    <p class="subtitulo">
-        Guia rápido para utilização do PM Run
-    </p>
-
-    <div class="card">
-
-        <h2>Passo a Passo</h2>
-
-        <div class="passo">
-            1️⃣ Abra o aplicativo PM Run.
-        </div>
-
-        <div class="passo">
-            2️⃣ Selecione a opção <b>Nota via Leitura</b>.
-        </div>
-
-        <div class="passo">
-            3️⃣ Escaneie o QR Code do equipamento.
-        </div>
-
-        <div class="passo">
-            4️⃣ Confirme o equipamento identificado.
-        </div>
-
-        <div class="passo">
-            5️⃣ Descreva a anomalia encontrada.
-        </div>
-
-        <div class="passo">
-            6️⃣ Anexe fotos, quando necessário.
-        </div>
-
-        <div class="passo">
-            7️⃣ Salve a nota.
-        </div>
-
+    <div class="passo">
+      <div class="num">2</div>
+      <div class="passo-texto">
+        <strong>Identifique o equipamento</strong>
+        <span class="passo-detalhe">
+          Toque em <b>ABRIR NOTA</b> e cole o código copiado acima na barra <i>Pesquisar</i> (ou use <b>NOTA VIA LEITURA</b> para bipar a etiqueta novamente).
+        </span>
+      </div>
     </div>
-
-    <div class="card">
-
-        <h2>Dicas para uma boa nota</h2>
-
-        <ul
+    <div class="passo">
+      <div class="num">3</div>
+      <div class="passo-texto">
+        <strong>Escolha o Tipo de Nota</strong>
+        <span class="passo-detalhe">Selecione entre <b>N1 a N6</b> conforme a criticidade (veja a tabela abaixo).</span>
+      </div>
+    </div>
+    <div class="passo">
+      <div class="num">4</div>
+      <div class="passo-texto">
+        <strong>Descreva o problema com clareza</strong>
+        <span class="passo-detalhe">Informe o componente exato, o sintoma observado e se a máquina está parada ou operando com restrição.</span>
+      </div>
+    </div>
+    <div class="passo">
+      <div class="num">5</div>
+      <div class="passo-texto">
+        <strong>Anexe fotos e finalize</strong>
+        <span class="passo-detalhe">Tire foto do defeito/vazamento/painel para ajudar o PCM a dimensionar peças e equipe, depois toque em <b>Salvar</b>.</span>
+      </div>
+    </div>
+  </div>
+  <!-- GUIA DE TIPOS DE NOTA DO APP -->
+  <div class="card">
+    <h2>📋 Qual Tipo de Nota escolher?</h2>
+    <div class="notas-grid">
+      <div class="nota-item">
+        <div class="nota-sigla urgente">N1</div>
+        <div class="nota-desc">
+          <strong>Corretiva Funcional</strong>
+          <span>Equipamento quebrou, parou ou apresenta falha que exige intervenção imediata/emergencial.</span>
+        </div>
+      </div>
+      <div class="nota-item">
+        <div class="nota-sigla">N2</div>
+        <div class="nota-desc">
+          <strong>Corretiva Planejada</strong>
+          <span>Anomalia identificada (ruído, vibração, pequeno vazamento), mas o equipamento ainda opera.</span>
+        </div>
+      </div>
+      <div class="nota-item">
+        <div class="nota-sigla">N3</div>
+        <div class="nota-desc">
+          <strong>Manutenção Autônoma</strong>
+          <span>Pequenos ajustes, limpeza técnica, lubrificação básica ou inspeção da operação.</span>
+        </div>
+      </div>
+      <div class="nota-item">
+        <div class="nota-sigla">N5</div>
+        <div class="nota-desc">
+          <strong>Apoio e Modificações</strong>
+          <span>Melhorias, adequações de segurança, fabricação de suportes ou solicitações de projeto.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- BOAS PRÁTICAS -->
+  <div class="card">
+    <h2>💡 Como escrever uma Nota Eficiente</h2>
+    <ul class="checklist">
+      <li><b>Seja específico no componente:</b> Evite escrever apenas <i>"Motor com defeito"</i> ou <i>"Máquina parada"</i>.</li>
+      <li><b>Informe o sintoma físico:</b> Desarme de disjuntor, aquecimento, ruído no rolamento, vazamento de óleo, sensor sem leitura.</li>
+      <li><b>Indique o impacto operacional:</b> Informe se o equipamento está parado ou rodando em bypass/emergência.</li>
+      <li><b>Uma nota por anomalia:</b> Não misture problemas mecânicos e elétricos diferentes na mesma nota.</li>
+    </ul>
+    <div class="exemplo-box">
+      <strong>✅ Exemplo ideal de descrição:</strong>
+      "Motor EC-101 desarmando por sobrecarga no painel CCM ao partir com carga. Temperatura elevada na carcaça. Equipamento parado."
+    </div>
+    <div class="alerta">
+      ⚠️ <b>Importante:</b> Se o equipamento não aparecer na busca, volte à tela inicial do PM Run e toque em <b>SINCRONIZAR</b> antes de abrir a nota.
+    </div>
+  </div>
+  <footer>
+    PCM & Manutenção Elétrica • ICL América do Sul
+  </footer>
+</div>
+<script>
+  // Lê os parâmetros da URL: ?eq=300437&tag=EC-101&nome=MOTOR%20EC-101
+  const params = new URLSearchParams(window.location.search);
+  const eq = params.get('eq');
+  const tag = params.get('tag');
+  const nome = params.get('nome');
+  if (eq) {
+    document.getElementById('ativoCard').style.display = 'block';
+    document.getElementById('codigoTexto').textContent = eq;
+    document.getElementById('ativoNome').textContent = nome ? nome : (tag ? `Equipamento ${tag}` : `Equipamento SAP ${eq}`);
+    document.getElementById('ativoMeta').textContent = `Código SAP: ${eq}` + (tag ? ` • Tag: ${tag}` : '');
+  }
+  function copiarCodigo() {
+    if (!eq) return;
+    navigator.clipboard.writeText(eq).then(() => {
+      const btn = document.getElementById('btnCopy');
+      btn.classList.add('copiado');
+      btn.innerHTML = `✅ Código ${eq} copiado! Cole no PM Run`;
+      setTimeout(() => {
+        btn.classList.remove('copiado');
+        btn.innerHTML = `📋 Copiar Código do Equipamento (<span>${eq}</span>)`;
+      }, 3500);
+    });
+  }
+  // Copia o código automaticamente no momento em que o usuário clica para abrir o app
+  function copiarSilencioso() {
+    if (eq && navigator.clipboard) {
+      navigator.clipboard.writeText(eq).catch(() => {});
+    }
+  }
+</script>
+</body>
+</html>
