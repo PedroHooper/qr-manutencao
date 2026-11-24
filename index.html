@@ -1,57 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Abertura de Nota SAP</title>
+<title>PM Run - Abertura de Nota</title>
 
 <style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
     font-family: Arial, sans-serif;
-    max-width:600px;
+    background:#f4f7fa;
+    color:#333;
+    line-height:1.6;
+}
+
+.container{
+    max-width:900px;
     margin:auto;
-    padding:30px;
+    padding:20px;
+}
+
+.logo{
     text-align:center;
-    background:#f5f5f5;
+}
+
+.logo img{
+    max-width:250px;
+    width:100%;
+}
+
+.titulo{
+    text-align:center;
+    margin-top:20px;
+    color:#003b64;
+}
+
+.subtitulo{
+    text-align:center;
+    margin-bottom:30px;
+    color:#555;
 }
 
 .card{
     background:white;
     padding:25px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
-.codigo{
-    font-size:32px;
-    font-weight:bold;
-    color:#0078d4;
+.card h2{
+    color:#00a8c8;
+    margin-bottom:15px;
 }
 
-.nome{
-    font-size:20px;
-    margin-top:15px;
+.passo{
+    padding:12px;
+    margin-bottom:10px;
+    background:#f7f9fb;
+    border-left:5px solid #00a8c8;
+    border-radius:5px;
 }
 
 .botao{
     display:block;
-    margin-top:15px;
+    text-align:center;
+    margin-top:20px;
     padding:15px;
+    background:#00a8c8;
+    color:white;
     text-decoration:none;
     border-radius:8px;
-    color:white;
     font-weight:bold;
 }
 
-.copiar{
-    background:#107c10;
+.alerta{
+    background:#fff8e6;
+    border-left:5px solid #ffb000;
+    padding:15px;
+    border-radius:5px;
 }
 
-.abrir{
-    background:#0078d4;
+footer{
+    text-align:center;
+    margin-top:30px;
+    color:#777;
 }
 
 </style>
@@ -59,57 +99,53 @@ body{
 
 <body>
 
-<div class="card">
+<div class="container">
 
-    <h2>Abertura de Nota SAP</h2>
+    <div class="logo">
+        <img src="ICL_BIG.png" alt="ICL">
+    </div>
 
-    <div id="codigo" class="codigo"></div>
+    <h1 class="titulo">Abertura de Nota de Manutenção</h1>
+    <p class="subtitulo">
+        Guia rápido para utilização do PM Run
+    </p>
 
-    <div id="nome" class="nome"></div>
+    <div class="card">
 
-    <a href="#" class="botao copiar" onclick="copiarCodigo()">
-        Copiar Código
-    </a>
+        <h2>Passo a Passo</h2>
 
-    <a
-       class="botao abrir"
-       href="http://szn-v-erpci01.onescopesa.net:8000/sap/bc/ui5_ui5/sap/zpmpt_app_monit/index.html#/Monitor/CriarNota">
-       Abrir Nota SAP
-    </a>
+        <div class="passo">
+            1️⃣ Abra o aplicativo PM Run.
+        </div>
 
-</div>
+        <div class="passo">
+            2️⃣ Selecione a opção <b>Nota via Leitura</b>.
+        </div>
 
-<script>
+        <div class="passo">
+            3️⃣ Escaneie o QR Code do equipamento.
+        </div>
 
-const equipamentos = {
+        <div class="passo">
+            4️⃣ Confirme o equipamento identificado.
+        </div>
 
-"300433":"MOEGA DE DESCARREGAMENTO A GRANEL MG-100",
-"300434":"ELEVADOR DE CANECAS EC-101",
-"300438":"PENEIRA VIBRATORIA PE-102",
-"300443":"ENSACADEIRA DE BIG BAG EN-107",
-"300452":"BOMBA NEMO BB-306",
-"300468":"COMPRESSOR KAESER SK20 CO-001",
-"300733":"COMPRESSOR ATLAS COPCO GA45 CO-002"
+        <div class="passo">
+            5️⃣ Descreva a anomalia encontrada.
+        </div>
 
-};
+        <div class="passo">
+            6️⃣ Anexe fotos, quando necessário.
+        </div>
 
-const params = new URLSearchParams(window.location.search);
-const eq = params.get("eq");
+        <div class="passo">
+            7️⃣ Salve a nota.
+        </div>
 
-document.getElementById("codigo").innerText = eq || "Sem código";
+    </div>
 
-document.getElementById("nome").innerText =
-equipamentos[eq] || "Equipamento não cadastrado";
+    <div class="card">
 
+        <h2>Dicas para uma boa nota</h2>
 
-function copiarCodigo(){
-
-    navigator.clipboard.writeText(eq);
-
-    alert("Código copiado: " + eq);
-}
-
-</script>
-
-</body>
-</html>
+        <ul
