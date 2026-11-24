@@ -1,12 +1,115 @@
-<script>
-const params = new URLSearchParams(window.location.search);
-const equipamento = params.get("eq");
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-if (equipamento) {
-    localStorage.setItem("equipamentoSAP", equipamento);
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Abertura de Nota SAP</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    max-width:600px;
+    margin:auto;
+    padding:30px;
+    text-align:center;
+    background:#f5f5f5;
 }
 
-window.location.replace(
-    "http://szn-v-erpci01.onescopesa.net:8000/sap/bc/ui5_ui5/sap/zpmpt_app_monit/index.html#/Monitor/CriarNota"
-);
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.codigo{
+    font-size:32px;
+    font-weight:bold;
+    color:#0078d4;
+}
+
+.nome{
+    font-size:20px;
+    margin-top:15px;
+}
+
+.botao{
+    display:block;
+    margin-top:15px;
+    padding:15px;
+    text-decoration:none;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+}
+
+.copiar{
+    background:#107c10;
+}
+
+.abrir{
+    background:#0078d4;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>Abertura de Nota SAP</h2>
+
+    <div id="codigo" class="codigo"></div>
+
+    <div id="nome" class="nome"></div>
+
+    <a href="#" class="botao copiar" onclick="copiarCodigo()">
+        Copiar Código
+    </a>
+
+    <a
+       class="botao abrir"
+       href="http://szn-v-erpci01.onescopesa.net:8000/sap/bc/ui5_ui5/sap/zpmpt_app_monit/index.html#/Monitor/CriarNota">
+       Abrir Nota SAP
+    </a>
+
+</div>
+
+<script>
+
+const equipamentos = {
+
+"300433":"MOEGA DE DESCARREGAMENTO A GRANEL MG-100",
+"300434":"ELEVADOR DE CANECAS EC-101",
+"300438":"PENEIRA VIBRATORIA PE-102",
+"300443":"ENSACADEIRA DE BIG BAG EN-107",
+"300452":"BOMBA NEMO BB-306",
+"300468":"COMPRESSOR KAESER SK20 CO-001",
+"300733":"COMPRESSOR ATLAS COPCO GA45 CO-002"
+
+};
+
+const params = new URLSearchParams(window.location.search);
+const eq = params.get("eq");
+
+document.getElementById("codigo").innerText = eq || "Sem código";
+
+document.getElementById("nome").innerText =
+equipamentos[eq] || "Equipamento não cadastrado";
+
+
+function copiarCodigo(){
+
+    navigator.clipboard.writeText(eq);
+
+    alert("Código copiado: " + eq);
+}
+
 </script>
+
+</body>
+</html>
