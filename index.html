@@ -1,55 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abertura de Nota</title>
-
-<style>
-body{
-    font-family: Arial, sans-serif;
-    max-width:600px;
-    margin:40px auto;
-    padding:20px;
-    text-align:center;
-}
-
-.botao{
-    display:inline-block;
-    background:#0078d4;
-    color:white;
-    text-decoration:none;
-    padding:15px 25px;
-    border-radius:8px;
-    font-size:18px;
-}
-</style>
-</head>
-<body>
-
-<h2>Abertura de Nota SAP</h2>
-
-<p id="equipamento"></p>
-
-<a
-class="botao"
-href="http://szn-v-erpci01.onescopesa.net:8000/sap/bc/ui5_ui5/sap/zmpt_app_monit/index.html#/Monitor/CriarNota">
-Abrir Nota
-</a>
-
 <script>
-
 const params = new URLSearchParams(window.location.search);
-const eq = params.get("eq");
+const equipamento = params.get("eq");
 
-if(eq){
-    document.getElementById("equipamento").innerText =
-    "Equipamento: " + eq;
-
-    localStorage.setItem("equipamentoSAP", eq);
+if (equipamento) {
+    localStorage.setItem("equipamentoSAP", equipamento);
 }
 
+window.location.replace(
+    "http://szn-v-erpci01.onescopesa.net:8000/sap/bc/ui5_ui5/sap/zpmpt_app_monit/index.html#/Monitor/CriarNota"
+);
 </script>
-
-</body>
-</html>
