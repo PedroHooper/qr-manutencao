@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Redirecionando...</title>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const equipamento = params.get("eq");
+
+if (equipamento) {
+    localStorage.setItem("equipamentoSAP", equipamento);
+}
+
+window.location.replace(
+    "http://szn-v-erpci01.onescopesa.net:8000/sap/bc/ui5_ui5/sap/zmpt_app_monit/index.html#/Monitor/CriarNota"
+);
+
+</script>
+</head>
+
+<body>
+
+<h2>Redirecionando para abertura da nota...</h2>
+
+</body>
+</html>
