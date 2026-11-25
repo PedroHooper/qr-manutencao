@@ -182,10 +182,6 @@ footer{
 Guia rápido para utilização do PM Run
 </p>
 
-<button onclick="abrirPMRun()" class="botao-app">
-📲 ABRIR PM RUN
-</button>
-
 <div class="alerta">
 <strong>Dica:</strong> Utilize sempre a opção
 <strong>Nota via Leitura</strong>.
@@ -414,40 +410,6 @@ PCM & Manutenção - Uberlândia
 <div class="modal" id="modalZoom" onclick="fecharZoom()">
 <img id="imagemZoom">
 </div>
-
-<script>
-
-function abrirPMRun() {
-
-    // Tentativa usando o pacote encontrado
-    window.location.href =
-    "intent://#Intent;package=br.com.itsstecnologia.app.pmrun;end";
-
-    // Caso não funcione, exibe orientação
-    setTimeout(function(){
-
-        alert(
-            "Se o PM Run não abriu automaticamente, abra manualmente o aplicativo e selecione 'Nota via Leitura'."
-        );
-
-    },1500);
-
-}
-
-function ampliar(src){
-
-    document.getElementById("imgAmpliada").src = src;
-    document.getElementById("modalZoom").style.display = "flex";
-
-}
-
-function fecharZoom(){
-
-    document.getElementById("modalZoom").style.display = "none";
-
-}
-
-</script>
 
 </body>
 </html>
