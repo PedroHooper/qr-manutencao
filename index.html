@@ -417,17 +417,26 @@ PCM & Manutenção - Uberlândia
 
 <script>
 
-function abrirPMRun(){
+function abrirPMRun() {
 
-    alert(
-      "Abra o aplicativo PM Run e selecione 'Nota via Leitura'."
-    );
+    // Tentativa usando o pacote encontrado
+    window.location.href =
+    "intent://#Intent;package=br.com.itsstecnologia.app.pmrun;end";
+
+    // Caso não funcione, exibe orientação
+    setTimeout(function(){
+
+        alert(
+            "Se o PM Run não abriu automaticamente, abra manualmente o aplicativo e selecione 'Nota via Leitura'."
+        );
+
+    },1500);
 
 }
 
 function ampliar(src){
 
-    document.getElementById("imagemZoom").src = src;
+    document.getElementById("imgAmpliada").src = src;
     document.getElementById("modalZoom").style.display = "flex";
 
 }
