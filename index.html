@@ -1,140 +1,444 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>PM Run - Abertura de Nota via QR Code | ICL</title>
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #f0f4f8; color: #1e293b; line-height: 1.5; padding-bottom: 32px; }
-  .container { max-width: 560px; margin: auto; padding: 20px 16px; }
-  .logo { text-align: center; margin-bottom: 10px; }
-  .logo img { max-width: 165px; width: 100%; height: auto; }
-  .titulo { text-align: center; color: #003b64; font-size: 1.45rem; font-weight: 800; }
-  .subtitulo { text-align: center; color: #64748b; font-size: 0.9rem; margin-bottom: 18px; }
-  .botao-app { display: block; width: 100%; text-align: center; padding: 16px; margin-bottom: 22px; background: linear-gradient(135deg, #00a8c8, #008ca8); color: #ffffff; text-decoration: none; border-radius: 12px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 4px 14px rgba(0, 168, 200, 0.35); border: none; cursor: pointer; }
-  .botao-app:active { transform: scale(0.98); }
-  .passo-card { background: #ffffff; border-radius: 14px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06); }
-  .passo-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .num { background: #003b64; color: #ffffff; font-weight: 800; font-size: 0.85rem; min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  .passo-titulo { color: #003b64; font-weight: 700; font-size: 1.02rem; }
-  .passo-texto { font-size: 0.92rem; color: #334155; margin-bottom: 12px; }
-  .print-wrapper { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px; text-align: center; }
-  .print-wrapper img { max-width: 240px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); cursor: zoom-in; }
-  .print-legenda { display: block; font-size: 0.78rem; color: #64748b; margin-top: 6px; }
-  .campos-lista { background: #f8fafc; border-left: 4px solid #00a8c8; padding: 10px 12px; border-radius: 6px; font-size: 0.88rem; margin-bottom: 12px; }
-  .campos-lista li { margin-left: 16px; margin-bottom: 4px; }
-  .alerta { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 12px 14px; border-radius: 8px; font-size: 0.85rem; color: #92400e; margin-top: 18px; }
-  .modal { display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.88); align-items: center; justify-content: center; padding: 16px; }
-  .modal img { max-width: 100%; max-height: 90vh; border-radius: 10px; }
-  footer { text-align: center; margin-top: 24px; color: #64748b; font-size: 0.8rem; }
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI, Arial, sans-serif;
+    background:#f3f6fa;
+    color:#1f2937;
+    line-height:1.6;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.logo img{
+    max-width:220px;
+    width:100%;
+}
+
+.titulo{
+    text-align:center;
+    color:#003b64;
+    font-size:32px;
+    font-weight:700;
+}
+
+.subtitulo{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:20px;
+}
+
+.botao-app{
+    width:100%;
+    border:none;
+    background:#00a8c8;
+    color:white;
+    padding:18px;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:10px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.botao-app:hover{
+    background:#0089a3;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.passo-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:10px;
+}
+
+.num{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:#003b64;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.passo-titulo{
+    font-size:20px;
+    color:#003b64;
+    font-weight:bold;
+}
+
+.print-wrapper{
+    margin-top:12px;
+    text-align:center;
+}
+
+.print-wrapper img{
+    width:100%;
+    max-width:280px;
+    border-radius:8px;
+    cursor:pointer;
+    border:1px solid #dbe2ea;
+}
+
+.print-legenda{
+    display:block;
+    font-size:12px;
+    color:#64748b;
+    margin-top:5px;
+}
+
+.campos-lista{
+    margin-top:12px;
+    padding:14px;
+    background:#f8fafc;
+    border-left:4px solid #00a8c8;
+    border-radius:5px;
+}
+
+.campos-lista li{
+    margin-left:18px;
+    margin-bottom:6px;
+}
+
+.alerta{
+    background:#fff7e6;
+    border-left:5px solid #f59e0b;
+    padding:15px;
+    border-radius:8px;
+    color:#8a5a00;
+    margin-bottom:20px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal img{
+    max-width:95%;
+    max-height:90%;
+}
+
+footer{
+    text-align:center;
+    margin-top:25px;
+    color:#64748b;
+}
+
 </style>
+
 </head>
+
 <body>
+
 <div class="container">
-  <div class="logo">
-    <img src="ICL_BIG.png" alt="ICL">
-  </div>
-  <h1 class="titulo">Abertura de Nota via QR Code</h1>
-  <p class="subtitulo">Guia visual passo a passo — PM Run</p>
-  <button onclick="abrirPMRun()" class="botao-app">📲 ABRIR APLICATIVO PM RUN</button>
-  <div class="passo-card">
-    <div class="passo-header">
-      <div class="num">1</div>
-      <div class="passo-titulo">Toque em "CRIAR NOTA"</div>
-    </div>
-    <p class="passo-texto">Na tela inicial (<b>HOME</b>) do aplicativo PM Run, selecione a terceira opção: <b>CRIAR NOTA</b>.</p>
-    <div class="print-wrapper">
-      <img src="passo1.jpeg" alt="Tela Home" onclick="ampliar(this.src)">
-      <span class="print-legenda">Toque na imagem para ampliar</span>
-    </div>
-  </div>
-  <div class="passo-card">
-    <div class="passo-header">
-      <div class="num">2</div>
-      <div class="passo-titulo">Selecione "NOTA VIA LEITURA"</div>
-    </div>
-    <p class="passo-texto">Na tela <b>ABRIR NOTA PM</b>, toque na primeira opção (<b>NOTA VIA LEITURA</b>) para ativar a câmera.</p>
-    <div class="print-wrapper">
-      <img src="passo2.jpeg" alt="Nota via Leitura" onclick="ampliar(this.src)">
-      <span class="print-legenda">Toque na imagem para ampliar</span>
-    </div>
-  </div>
-  <div class="passo-card">
-    <div class="passo-header">
-      <div class="num">3</div>
-      <div class="passo-titulo">Aponte a câmera para o QR Code</div>
-    </div>
-    <p class="passo-texto">Enquadre a etiqueta do equipamento. O sistema identificará o ativo automaticamente (use o ícone da lâmpada no topo direito se estiver escuro).</p>
-    <div class="print-wrapper">
-      <img src="passo3.jpeg" alt="Leitura QR Code" onclick="ampliar(this.src)">
-      <span class="print-legenda">Toque na imagem para ampliar</span>
-    </div>
-  </div>
-  <div class="passo-card">
-    <div class="passo-header">
-      <div class="num">4</div>
-      <div class="passo-titulo">Escolha o Tipo de Nota</div>
-    </div>
-    <p class="passo-texto">O app abrirá direto no equipamento (ex.: <b>300437 - MOTOR EC-101</b>). Escolha o tipo:</p>
-    <ul class="campos-lista">
-      <li><b>N1 - Corretiva Funcional:</b> Máquina parada ou quebra imediata.</li>
-      <li><b>N2 - Corretiva Planejada:</b> Defeito detectado, mas equipamento ainda opera.</li>
-      <li><b>N3 - Manut. Autônoma:</b> Limpeza técnica, ajuste ou inspeção.</li>
-      <li><b>N5 - Apoio e Modificações:</b> Melhorias ou adequações.</li>
-    </ul>
-    <div class="print-wrapper">
-      <img src="passo4.jpeg" alt="Tipo de Nota" onclick="ampliar(this.src)">
-      <span class="print-legenda">Toque na imagem para ampliar</span>
-    </div>
-  </div>
-  <div class="passo-card">
-    <div class="passo-header">
-      <div class="num">5</div>
-      <div class="passo-titulo">Preencha os Dados da Nota</div>
-    </div>
-    <p class="passo-texto">O equipamento e o local já vêm preenchidos. Complete apenas:</p>
-    <ul class="campos-lista">
-      <li><b>Título:</b> Resumo curto (ex.: <i>Motor EC-101 desarmando</i>).</li>
-      <li><b>Notificador:</b> Seu nome ou matrícula.</li>
-      <li><b>Máquina Parada?:</b> Ative a chave se o ativo parou.</li>
-      <li><b>Prioridade:</b> Selecione conforme a urgência.</li>
-    </ul>
-    <div class="print-wrapper">
-      <img src="passo5.jpeg" alt="Dados da Nota" onclick="ampliar(this.src)">
-      <span class="print-legenda">Toque na imagem para ampliar</span>
-    </div>
-  </div>
-  <div class="passo-card">
-    <div class="passo-header">
-      <div class="num">6</div>
-      <div class="passo-titulo">Detalhe o Problema e Gere a Nota</div>
-    </div>
-    <p class="passo-texto">Role para baixo, preencha a <b>Descrição</b>, toque no <b>ícone da câmera</b> no topo direito para anexar foto da falha e toque em <b>GERAR NOTA</b>.</p>
-    <div class="print-wrapper">
-      <img src="passo6.jpeg" alt="Gerar Nota" onclick="ampliar(this.src)">
-      <span class="print-legenda">Toque na imagem para ampliar</span>
-    </div>
-  </div>
-  <div class="alerta">
-    ⚠️ <b>Equipamento não encontrado?</b> Volte à tela inicial do PM Run, toque no ícone de nuvem no canto inferior direito (<b>Sincronizar</b>) e leia o QR Code novamente.
-  </div>
-  <footer>PCM & Manutenção • ICL América do Sul</footer>
+
+<div class="logo">
+<img src="ICL_BIG.png" alt="ICL">
 </div>
-<div id="modalZoom" class="modal" onclick="this.style.display='none'">
-  <img id="imgAmpliada" src="" alt="Zoom">
+
+<h1 class="titulo">Abertura de Nota via QR Code</h1>
+
+<p class="subtitulo">
+Guia rápido para utilização do PM Run
+</p>
+
+<button onclick="abrirPMRun()" class="botao-app">
+📲 ABRIR PM RUN
+</button>
+
+<div class="alerta">
+<strong>Dica:</strong> Utilize sempre a opção
+<strong>Nota via Leitura</strong>.
+O QR Code identifica automaticamente o equipamento e reduz erros de cadastro.
 </div>
+
+<!-- PASSO 1 -->
+
+<div class="card">
+
+<div class="passo-header">
+<div class="num">1</div>
+<div class="passo-titulo">Criar Nota</div>
+</div>
+
+<p>
+Na tela inicial do PM Run selecione a opção
+<strong>CRIAR NOTA</strong>.
+</p>
+
+<div class="print-wrapper">
+<img src="passo1.jpeg" onclick="ampliar(this.src)">
+<span class="print-legenda">Toque na imagem para ampliar</span>
+</div>
+
+</div>
+
+<!-- PASSO 2 -->
+
+<div class="card">
+
+<div class="passo-header">
+<div class="num">2</div>
+<div class="passo-titulo">Nota via Leitura</div>
+</div>
+
+<p>
+Selecione <strong>NOTA VIA LEITURA</strong> para utilizar a câmera.
+</p>
+
+<div class="print-wrapper">
+<img src="passo2.jpeg" onclick="ampliar(this.src)">
+<span class="print-legenda">Toque na imagem para ampliar</span>
+</div>
+
+</div>
+
+<!-- PASSO 3 -->
+
+<div class="card">
+
+<div class="passo-header">
+<div class="num">3</div>
+<div class="passo-titulo">Ler QR Code</div>
+</div>
+
+<p>
+Aponte a câmera para o QR Code do equipamento.
+O PM Run identificará automaticamente o ativo.
+</p>
+
+<div class="print-wrapper">
+<img src="passo3.jpeg" onclick="ampliar(this.src)">
+<span class="print-legenda">Toque na imagem para ampliar</span>
+</div>
+
+</div>
+
+<!-- PASSO 4 -->
+
+<div class="card">
+
+<div class="passo-header">
+<div class="num">4</div>
+<div class="passo-titulo">Selecionar Tipo de Nota</div>
+</div>
+
+<ul class="campos-lista">
+
+<li><b>N1 - Corretiva Funcional:</b> equipamento parado ou falha crítica.</li>
+
+<li><b>N2 - Corretiva Planejada:</b> equipamento funcionando, mas apresenta defeito.</li>
+
+<li><b>N3 - Manutenção Autônoma:</b> limpeza, inspeção ou ajuste.</li>
+
+<li><b>N5 - Apoio e Melhorias:</b> adequações e melhorias.</li>
+
+</ul>
+
+<div class="print-wrapper">
+<img src="passo4.jpeg" onclick="ampliar(this.src)">
+<span class="print-legenda">Toque na imagem para ampliar</span>
+</div>
+
+</div>
+
+<!-- PASSO 5 -->
+
+<div class="card">
+
+<div class="passo-header">
+<div class="num">5</div>
+<div class="passo-titulo">Preencher os Campos</div>
+</div>
+
+<ul class="campos-lista">
+
+<li><b>Título:</b> resumo curto da anomalia.</li>
+
+<li><b>Prioridade:</b> definir conforme criticidade.</li>
+
+<li><b>Máquina Parada:</b> marcar quando o equipamento estiver indisponível.</li>
+
+<li><b>Notificador:</b> informar seu nome ou matrícula.</li>
+
+</ul>
+
+<div class="print-wrapper">
+<img src="passo5.jpeg" onclick="ampliar(this.src)">
+<span class="print-legenda">Toque na imagem para ampliar</span>
+</div>
+
+</div>
+
+<!-- PASSO 6 -->
+
+<div class="card">
+
+<div class="passo-header">
+<div class="num">6</div>
+<div class="passo-titulo">Descrever a Falha</div>
+</div>
+
+<p><strong>Evite:</strong></p>
+
+<ul class="campos-lista">
+<li>Motor com defeito.</li>
+<li>Equipamento quebrado.</li>
+<li>Parou de funcionar.</li>
+</ul>
+
+<p><strong>Prefira:</strong></p>
+
+<ul class="campos-lista">
+<li>Motor EC-101 desarmando após alguns minutos de operação.</li>
+
+<li>Ruído excessivo no rolamento lado acoplamento.</li>
+
+<li>Vazamento de óleo no redutor do TC-305 próximo ao eixo de saída.</li>
+
+<li>Aquecimento anormal identificado na carcaça do motor.</li>
+</ul>
+
+<div class="print-wrapper">
+<img src="passo6.jpeg" onclick="ampliar(this.src)">
+<span class="print-legenda">Toque na imagem para ampliar</span>
+</div>
+
+</div>
+
+<!-- FOTOS -->
+
+<div class="card">
+
+<div class="passo-header">
+<div class="num">📸</div>
+<div class="passo-titulo">Quando Anexar Fotos</div>
+</div>
+
+<ul class="campos-lista">
+
+<li>Vazamentos.</li>
+
+<li>Trincas.</li>
+
+<li>Desalinhamentos.</li>
+
+<li>Cabos danificados.</li>
+
+<li>Componentes queimados.</li>
+
+<li>Peças soltas.</li>
+
+<li>Quebras mecânicas.</li>
+
+</ul>
+
+</div>
+
+<!-- SINCRONIZAÇÃO -->
+
+<div class="alerta">
+
+⚠️ <strong>Equipamento não encontrado?</strong>
+
+<br><br>
+
+1. Volte para a tela inicial do PM Run.
+
+<br>
+
+2. Clique em <strong>Sincronizar</strong>.
+
+<br>
+
+3. Aguarde a atualização.
+
+<br>
+
+4. Faça a leitura do QR novamente.
+
+</div>
+
+<footer>
+
+<strong>ICL América do Sul</strong>
+
+<br>
+
+PCM & Manutenção - Uberlândia
+
+</footer>
+
+</div>
+
+<div class="modal" id="modalZoom" onclick="fecharZoom()">
+<img id="imagemZoom">
+</div>
+
 <script>
-  function abrirPMRun() {
-    window.location.href = "intent://#Intent;package=br.com.itsstecnologia.app.pmrun;end";
-    setTimeout(function() {
-      window.location.href = "intent://#Intent;package=br.com.itsstecnologia.app.pm.run;end";
-    }, 600);
-  }
-  function ampliar(src) {
-    document.getElementById('imgAmpliada').src = src;
-    document.getElementById('modalZoom').style.display = 'flex';
-  }
+
+function abrirPMRun(){
+
+    alert(
+      "Abra o aplicativo PM Run e selecione 'Nota via Leitura'."
+    );
+
+}
+
+function ampliar(src){
+
+    document.getElementById("imagemZoom").src = src;
+    document.getElementById("modalZoom").style.display = "flex";
+
+}
+
+function fecharZoom(){
+
+    document.getElementById("modalZoom").style.display = "none";
+
+}
+
 </script>
+
 </body>
 </html>
